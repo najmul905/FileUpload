@@ -57,6 +57,12 @@ function App() {
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   };
+  const handleUpload = () => {
+    // Implement your upload logic here
+    console.log('Uploading files:', files);
+    alert(`${files.length} file(s) uploaded successfully!`);
+    setFiles([]); // Clear files after upload
+  };
   return (
     <div>
     <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
@@ -74,7 +80,7 @@ function App() {
           <h3 className="text-lg font-medium text-gray-900 mb-1">
             Drag & Drop Files Here
           </h3>
-          <p className="text-gray-500 mb-4">or</p>
+          {/* <p className="text-gray-500 mb-4">or</p> */}
           
           <input
             type="file"
@@ -83,13 +89,27 @@ function App() {
             className="hidden"
             multiple
           />
-          <button
-            type="button"
-            onClick={handleButtonClick}
-            className="cursor-pointer px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
-          >
-            Browse Files
-          </button>
+           {/* Conditional rendering of buttons */}
+           {files.length === 0 ? (
+            <>
+              <p className="text-gray-500 mb-4">or</p>
+              <button
+                type="button"
+                onClick={handleButtonClick}
+                className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+              >
+                Browse Files
+              </button>
+            </>
+          ) : (
+            <button
+              type="button"
+              onClick={handleUpload}
+              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            >
+              Upload {files.length} File{files.length !== 1 ? 's' : ''}
+            </button>
+          )}
         </div>
 
         {/* File preview */}
